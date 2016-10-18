@@ -3,18 +3,18 @@
   <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Site title</title>
+    <title>I DIVIDE INFINITELY</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <meta name="description" content="description">
+    <meta name="description" content="Into islands of foreign bodies">
 
     <meta name="twitter:site" value="@">
     <meta property="og:image" content="image.jpg" />
-    <meta property="og:title" content="Page title" />
-    <meta property="og:site_name" content="Site name" />
+    <meta property="og:title" content="I DIVIDE INFINITELY" />
+    <meta property="og:site_name" content="I DIVIDE INFINITELY" />
     <meta property="og:type" content="website" />
-    <meta property="og:description" content="Description">
-    <meta name="twitter:card" value="Description">
+    <meta property="og:description" content="Into islands of foreign bodies">
+    <meta name="twitter:card" value="Into islands of foreign bodies">
 
     <link rel="icon" href="img/dist/favicon.png">
     <link rel="shortcut" href="img/dist/favicon.ico">
@@ -38,14 +38,24 @@ nope: "js/polyfills/mediaqueries.js"
   </head>
   <body class="">
     <!--[if lt IE 8]><p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p><![endif]-->
+    <section id="organs">
+      <svg width="100%" height="100%" baseProfile="full" version="1.2">
+        <defs>
+          <mask id="pngmask" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" transform="scale(1)">
+            <image width="100%" height="100%" xlink:href="img/dist/organs.png"/>
+          </mask>
+        </defs>
+        <image id="image-1" mask="url(#pngmask)" width="100%" height="100%" y="0" x="0" xlink:href="img/dist/island-beach.jpeg"  preserveAspectRatio="none" />
+      </svg>
+    </section>
 
-    <section id="main-container">
+    <section id="main-container" class="text-align-center">
 
       <!-- start content -->
       <header id="header" class="container">
         <div class="grid-row">
           <div class="grid-item item-s-12">
-            Header :)
+            <h1 class="font-size-large margin-bottom-small">I DIVIDE INFINITELY</h1>
           </div>
         </div>
       </header>
@@ -53,16 +63,26 @@ nope: "js/polyfills/mediaqueries.js"
       <!-- main content -->
       <main id="main-content" class="container">
         <div class="grid-row">
-          <div class="grid-item item-s-12">
-            Content
+          <div class="grid-item item-s-12 grid-column align-items-center">
+            <p class="margin-bottom-large">Into islands of foreign bodies</p>
+            <p class="font-size-large margin-bottom-large">SHELL LESS</p>
+            <p class="margin-bottom-large">Liver, brain, kidneys, stomach, pancreas, lungs, uterus, spleen, bladder, heart</p>
+            <p class="font-size-large margin-bottom-small">RISING JUST ABOVE THE RIM</p>
+            <p>unlimited ed.</p>
           </div>
         </div>
       </main>
 
-      <footer id="footer" class="container">
+      <footer id="footer" class="container font-size-small margin-top-large">
         <div class="grid-row">
-          <div class="grid-item item-s-12">
-            Footer
+          <div class="grid-item item-s-12 item-m-4 margin-bottom-basic">
+            <a href="mailto:melodiemousset@hotmail.com?Subject=I%20want%20stickers!">order</a>
+          </div>
+          <div class="grid-item item-s-12 item-m-4 margin-bottom-basic">
+            <a href="https://www.instagram.com/explore/tags/idivideinfinitely">#idivideinfinitely</a>
+          </div>
+          <div class="grid-item item-s-12 item-m-4 margin-bottom-basic">
+            © Mélodie Mousset 2015
           </div>
         </div>
       </footer>
@@ -76,31 +96,6 @@ nope: "js/polyfills/mediaqueries.js"
       <script type='text/javascript' src='js/library.js'></script>
       <script type='text/javascript' src='js/main.js'></script>
     </section>
-    <script type="application/ld+json">
-      {
-        "@context": "http://schema.org",
-        "@type": "Organization",
-        "url": "http://www.example.com",
-        "logo": "http://www.example.com/images/logo.png",
-        "contactPoint" : [
-        { "@type" : "ContactPoint",
-        "telephone" : "+1-877-746-0909",
-        "contactType" : "customer service",
-        "contactOption" : "TollFree",
-        "areaServed" : "US"
-        } , {
-        "@type" : "ContactPoint",
-        "telephone" : "+1-505-998-3793",
-        "contactType" : "customer service"
-        } ],
-        "sameAs" : [
-        "http://www.facebook.com/your-profile",
-        "http://instagram.com/yourProfile",
-        "http://www.linkedin.com/in/yourprofile",
-        "http://plus.google.com/your_profile"
-        ]
-      }
-    </script>
 
   </body>
 </html>
