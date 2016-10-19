@@ -1,8 +1,10 @@
 // FONTS
 
 // declare font families here
+
+@import 'fonts'
   
-$font-sans = font-stack('Helvetica');
+$font-sans = 'Theinhardt', font-stack('Helvetica');
 $font-serif = font-stack('Georgia');
 
 // ******************************************************
@@ -42,8 +44,8 @@ html
 body
   line-height: $font-leading-basic
   
-p
-  margin-bottom: 1rem
+h1,h2,h3,h4,h5,h6,p
+  margin-bottom: 0
   
 // FONT RULES
   
@@ -92,7 +94,6 @@ a,
 a:active,
 a:visited
   color: inherit
-  text-decoration: none
   
 font-sizes($size-basic = false, $size-extra = false, $size-large = false, $size-mid = false, $size-small = false, $size-tiny = false, $size-micro = false)
 
