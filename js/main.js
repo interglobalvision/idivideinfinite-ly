@@ -10,6 +10,8 @@ Site = {
       _this.onResize();
     });
 
+    _this.FlickrBackgrounds.init();
+
   },
 
   onResize: function() {
@@ -24,6 +26,86 @@ Site = {
       string = string.replace(/ ([^ ]*)$/,'&nbsp;$1');
       $(this).html(string);
     });
+  },
+};
+
+Site.FlickrBackgrounds = {
+  init: function() {
+    var _this = this;
+
+    // This is the text used in the search query
+    _this.searchText = 'tropical+vacations';
+
+    // Element where the bacground is set
+    _this.container = $('#tropical-bg');
+
+    // Flickr API key
+    _this.apiKey = '6034ee53b5f4c9f50b9f7695b10b1298';
+
+    // Make the request
+    $.getJSON('https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=' + this.apiKey +'&text=' + _this.searchText + '&safe_search=1&content_type=1&media=photos&format=json&jsoncallback=?', function(data) {
+      
+      // If Flicker says YUZ
+      if(data.stat === 'ok') {
+
+        // We will attempt to find an existing image 4 times
+        for(var i = 0; i < 4; i++) {
+
+          // Choose a random (0-99) photo from the data
+          var randomPhoto = data.photos.photo[_this.getRandomNumber(0,99)];
+
+          // Construct the photo url
+          var url = _this.constructUrl(randomPhoto);
+
+          // Check if image exist
+          if (_this.imageExist(url)) {
+            _this.setTropicalBg(url);
+            break;
+          } else if (i === 3) {
+            _this.setTropicalBg('img/dist/island-beach.jpg');
+          }
+        }
+      } 
+      
+
+    });
+
+  },
+
+  imageExist: function(url) {
+    var response = false;
+
+    // Make the request to check if exists
+    $.ajax({
+      url: url,
+      async: false,
+    }).complete(function(jqXHR) {
+      // If the photo exists
+      if(jqXHR.status === 200) {
+        response = true;
+      }
+    }).fail(function() {
+      console.log('error');
+    });
+
+    return response;
+  },
+
+  constructUrl: function(photo) {
+    return 'https://farm'+ photo.farm +'.staticflickr.com/' + photo.server +'/' + photo.id + '_' + photo.secret + '_h.jpg'
+
+  },
+
+  setTropicalBg: function(url) {
+    var _this = this;
+
+    console.log(url);
+
+    _this.container.attr('xlink:href',url);
+  },
+
+  getRandomNumber: function(min,max) {
+    return Math.floor(Math.random() * max) + min;  
   },
 };
 
