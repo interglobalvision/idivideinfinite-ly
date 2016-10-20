@@ -19,7 +19,7 @@ Site = {
   onResize: function() {
     var _this = this;
 
-    _this.Layout.mainContainerMarginTop();
+    _this.Layout.init();
   },
 
   fixWidows: function() {
@@ -36,10 +36,16 @@ Site.Layout = {
   init: function() {
     var _this = this;
 
+    _this.windowHeight = $(window).height();
+    _this.mainContainerTop = $('body').height() - _this.windowHeight;
+    _this.mainContainerMarginTop();
+
   },
 
   mainContainerMarginTop: function() {
-    $('#main-container').css('margin-top', $('body').height() - $(window).height());
+    var _this = this;
+
+    $('#main-container').css('margin-top', _this.mainContainerTop * 0.95);
   }
 }
 
@@ -47,21 +53,27 @@ Site.Organs = {
   init: function() {
     var _this = this;
 
+    _this.svg = $('#organs-svg');
+
     _this.initSkrollr();
     _this.bindMouse();
   },
 
   initSkrollr: function() {
+    var _this = this;
+
     var s = skrollr.init({
       easing: 'quadratic',
       render: function() {
-        Site.Layout.mainContainerMarginTop();
+        Site.Layout.init();
       }
     });
   },
 
   bindMouse: function() {
-    $(window).mousemove(function( event ) {
+    var _this = this;
+
+    $(window).mousemove(function(event) {
       var mouseX = event.clientX;
       var mouseY = event.clientY;
 
@@ -79,7 +91,7 @@ Site.Organs = {
         'y': transY + '%',
       });
 
-      $('svg').css('transform', 'perspective(500px) rotate3d(' + skewX + ', ' + skewY + ', ' + skewY + ', ' + ((skewY * skewX) / 3) + 'deg)');
+      _this.svg.css('transform', 'perspective(500px) rotate3d(' + skewX + ', ' + skewY + ', ' + skewY + ', ' + ((skewY * skewX) / 3) + 'deg)');
     });
   }
 };
