@@ -10,10 +10,15 @@ Site = {
       _this.onResize();
     });
 
+    _this.skrollrHeight = 6000;
+
+    Site.Layout.init();
+
     _this.FlickrBackgrounds.init();
 
     $(document).ready(function() {
       _this.Organs.init();
+      _this.Audio.init();
     });
   },
 
@@ -37,17 +42,15 @@ Site.Layout = {
   init: function() {
     var _this = this;
 
-    _this.windowHeight = $(window).height();
-    _this.mainContainerTop = $('body').height() - _this.windowHeight;
-    _this.mainContainerMarginTop();
+    _this.mainContainerPaddingTop();
   },
 
-  mainContainerMarginTop: function() {
+  mainContainerPaddingTop: function() {
     var _this = this;
 
-    $('#main-container').css('margin-top', _this.mainContainerTop * 0.95);
+    $('#main-container').css('padding-top', Site.skrollrHeight);
   }
-}
+};
 
 Site.Organs = {
   init: function() {
@@ -64,9 +67,7 @@ Site.Organs = {
 
     var s = skrollr.init({
       easing: 'quadratic',
-      render: function() {
-        Site.Layout.init();
-      }
+      skrollrBody: 'main-container'
     });
   },
 
@@ -178,6 +179,52 @@ Site.FlickrBackgrounds = {
     return Math.floor(Math.random() * max) + min;  
   },
 };
+
+Site.Audio = {
+  init: function() {
+    var _this = this;
+
+    _this.playlistId = '269048127';
+    _this.clientId = '0a48e71510bb97b2148c3802bddc8802';
+    _this.playlistJson = 'http://api.soundcloud.com/playlists/' + _this.playlistId + '?client_id=' + _this.clientId;
+
+    _this.getTrack();
+  },
+
+  getTrack: function() {
+    var _this = this;
+
+    $.getJSON(_this.playlistJson, function(data) {
+      if (data) {
+        var tracks = data['tracks'];
+        var randomTrack = tracks[Math.floor(Math.random()*tracks.length)];
+        var trackUrl = randomTrack['stream_url'] + '?client_id=' + _this.clientId
+
+        _this.addElem(trackUrl);
+      }
+    });
+  },
+
+  addElem: function(url) {
+    var _this = this;
+    var audioElem = '<audio id="audio" src="' + url + '" preload="auto" loop volume="1.0"></audio>';
+
+    $('body').prepend(audioElem);
+    $('#audio').trigger('play');
+
+    _this.bindVolume();
+  },
+
+  bindVolume: function() {
+    var audio = document.getElementById("audio");
+
+    $(window).on('scroll', function() {
+      var volume = (($('#gradient-background').offset().top - $(window).scrollTop()) + $('#gradient-background').height()) / $('#gradient-background').height();
+
+      audio.volume = volume > 0.1 ? volume : 0.1;
+    });
+  },
+}
 
 jQuery(document).ready(function () {
   'use strict';
