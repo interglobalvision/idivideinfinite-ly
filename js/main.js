@@ -37,15 +37,14 @@ Site.Layout = {
   init: function() {
     var _this = this;
 
-    _this.windowHeight = $(window).height();
-    _this.mainContainerTop = $('body').height() - _this.windowHeight;
+    _this.skrollrHeight = 6000;
     _this.mainContainerMarginTop();
   },
 
   mainContainerMarginTop: function() {
     var _this = this;
 
-    $('#main-container').css('margin-top', _this.mainContainerTop * 0.95);
+    $('#main-container').css('margin-top', _this.skrollrHeight);
   }
 }
 
@@ -64,6 +63,7 @@ Site.Organs = {
 
     var s = skrollr.init({
       easing: 'quadratic',
+      skrollrBody: 'main-container',
       render: function() {
         Site.Layout.init();
       }
