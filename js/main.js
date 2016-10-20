@@ -112,7 +112,7 @@ Site.FlickrBackgrounds = {
 
     // Make the request
     $.getJSON('https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=' + this.apiKey +'&text=' + _this.searchText + '&safe_search=1&content_type=1&media=photos&format=json&jsoncallback=?', function(data) {
-      
+
       // If Flicker says YUZ
       if(data.stat === 'ok') {
         // We will get 5 images
@@ -139,7 +139,7 @@ Site.FlickrBackgrounds = {
         $('body').css('overflow','initial');
         $('#organs').css('opacity',1);
       }
-      
+
 
     });
 
@@ -176,7 +176,7 @@ Site.FlickrBackgrounds = {
   },
 
   getRandomNumber: function(min,max) {
-    return Math.floor(Math.random() * max) + min;  
+    return Math.floor(Math.random() * max) + min;
   },
 };
 
@@ -226,9 +226,4 @@ Site.Audio = {
   },
 }
 
-jQuery(document).ready(function () {
-  'use strict';
-
-  Site.init();
-
-});
+Site.init();
