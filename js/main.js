@@ -1,8 +1,9 @@
 /* jshint browser: true, devel: true, indent: 2, curly: true, eqeqeq: true, futurehostile: true, latedef: true, undef: true, unused: true */
-/* global jQuery, $, document, Site, Modernizr */
+/* global $, document, Site, skrollr */
 
 Site = {
   mobileThreshold: 601,
+  skrollrHeight: 6000,
   init: function() {
     var _this = this;
 
@@ -10,11 +11,8 @@ Site = {
       _this.onResize();
     });
 
-    _this.skrollrHeight = 6000;
-
     Site.Layout.init();
-
-    _this.FlickrBackgrounds.init();
+    Site.FlickrBackgrounds.init();
 
     $(document).ready(function() {
       _this.Organs.init();
@@ -25,7 +23,7 @@ Site = {
   onResize: function() {
     var _this = this;
 
-    _this.Layout.init();
+    _this.Layout.onResize();
   },
 
   fixWidows: function() {
@@ -42,12 +40,17 @@ Site.Layout = {
   init: function() {
     var _this = this;
 
-    _this.mainContainerPaddingTop();
+    _this.layout();
   },
 
-  mainContainerPaddingTop: function() {
+  onResize: function() {
     var _this = this;
 
+    _this.layout();
+
+  },
+
+  layout: function() {
     $('#main-container').css('padding-top', Site.skrollrHeight);
   }
 };
@@ -56,7 +59,7 @@ Site.Organs = {
   init: function() {
     var _this = this;
 
-    _this.svg = $('#organs-svg');
+    _this.$svg = $('#organs-svg');
 
     _this.initSkrollr();
     _this.bindMouse();
@@ -65,7 +68,7 @@ Site.Organs = {
   initSkrollr: function() {
     var _this = this;
 
-    var s = skrollr.init({
+    _this.skrollrInstance = skrollr.init({
       easing: 'quadratic',
       skrollrBody: 'main-container'
     });
@@ -92,7 +95,7 @@ Site.Organs = {
         'y': transY + '%',
       });
 
-      _this.svg.css('transform', 'perspective(500px) rotate3d(' + skewX + ', ' + skewY + ', ' + skewY + ', ' + ((skewY * skewX) / 3) + 'deg)');
+      _this.$svg.css('transform', 'perspective(500px) rotate3d(' + skewX + ', ' + skewY + ', ' + skewY + ', ' + ((skewY * skewX) / 3) + 'deg)');
     });
   }
 };
@@ -111,7 +114,7 @@ Site.FlickrBackgrounds = {
     _this.apiKey = '6034ee53b5f4c9f50b9f7695b10b1298';
 
     // Make the request
-    $.getJSON('https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=' + this.apiKey +'&text=' + _this.searchText + '&safe_search=1&content_type=1&media=photos&format=json&jsoncallback=?', function(data) {
+    $.getJSON('https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=' + _this.apiKey +'&text=' + _this.searchText + '&safe_search=1&content_type=1&media=photos&format=json&jsoncallback=?', function(data) {
 
       // If Flicker says YUZ
       if(data.stat === 'ok') {
@@ -121,17 +124,17 @@ Site.FlickrBackgrounds = {
           for(var i = 0; i < 4; i++) {
 
             // Choose a random (0-99) photo from the data
-            var randomPhoto = data.photos.photo[_this.getRandomNumber(0,99)];
+            var randomPhoto = data.photos.photo[_this.getRandomNumber(0, 99)];
 
             // Construct the photo url
             var url = _this.constructUrl(randomPhoto);
 
             // Check if image exist
-            if (_this.imageExist(url)) {
-              _this.setTropicalBg(url, t);
+            if (_this.doesImageExist(url)) {
+              _this.setTropicalBackground(url, t);
               break;
             } else if (i === 3) {
-              _this.setTropicalBg('img/dist/island-beach.jpg', t);
+              _this.setTropicalBackground('img/dist/island-beach.jpg', t);
             }
           }
         }
@@ -140,12 +143,11 @@ Site.FlickrBackgrounds = {
         $('#organs').css('opacity',1);
       }
 
-
     });
 
   },
 
-  imageExist: function(url) {
+  doesImageExist: function(url) {
     var response = false;
 
     // Make the request to check if exists
@@ -165,14 +167,11 @@ Site.FlickrBackgrounds = {
   },
 
   constructUrl: function(photo) {
-    return 'https://farm'+ photo.farm +'.staticflickr.com/' + photo.server +'/' + photo.id + '_' + photo.secret + '_h.jpg'
-
+    return 'https://farm' + photo.farm + '.staticflickr.com/' + photo.server + '/' + photo.id + '_' + photo.secret + '_h.jpg';
   },
 
-  setTropicalBg: function(url, bgNum) {
-    var _this = this;
-
-    $('#tropical-bg-' + bgNum).attr('xlink:href',url);
+  setTropicalBackground: function(url, bgNum) {
+    $('#tropical-bg-' + bgNum).attr('xlink:href', url);
   },
 
   getRandomNumber: function(min,max) {
@@ -196,16 +195,16 @@ Site.Audio = {
 
     $.getJSON(_this.playlistJson, function(data) {
       if (data) {
-        var tracks = data['tracks'];
-        var randomTrack = tracks[Math.floor(Math.random()*tracks.length)];
-        var trackUrl = randomTrack['stream_url'] + '?client_id=' + _this.clientId
+        var tracks = data.tracks;
+        var randomTrack = tracks[Math.floor(Math.random() * tracks.length)];
+        var trackUrl = randomTrack.stream_url + '?client_id=' + _this.clientId;
 
-        _this.addElem(trackUrl);
+        _this.addElement(trackUrl);
       }
     });
   },
 
-  addElem: function(url) {
+  addElement: function(url) {
     var _this = this;
     var audioElem = '<audio id="audio" src="' + url + '" preload="auto" loop volume="1.0"></audio>';
 
@@ -216,7 +215,7 @@ Site.Audio = {
   },
 
   bindVolume: function() {
-    var audio = document.getElementById("audio");
+    var audio = document.getElementById('audio');
 
     $(window).on('scroll', function() {
       var volume = (($('#gradient-background').offset().top - $(window).scrollTop()) + $('#gradient-background').height()) / $('#gradient-background').height();
@@ -224,6 +223,6 @@ Site.Audio = {
       audio.volume = volume > 0.1 ? volume : 0.1;
     });
   },
-}
+};
 
 Site.init();
