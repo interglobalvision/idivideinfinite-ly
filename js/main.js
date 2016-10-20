@@ -104,7 +104,6 @@ Site.FlickrBackgrounds = {
     _this.searchText = 'tropical+beach';
 
     // Element where the background is set
-    _this.imageId = '#tropical-bg-';
     _this.imageNum = 1;
 
     // Flickr API key
@@ -116,7 +115,7 @@ Site.FlickrBackgrounds = {
       // If Flicker says YUZ
       if(data.stat === 'ok') {
         // We will get 5 images
-        for(var t = 0; t < 5; t++) {
+        for(var t = 1; t <= 5; t++) {
           // We will attempt to find an existing image 4 times
           for(var i = 0; i < 4; i++) {
 
@@ -128,10 +127,10 @@ Site.FlickrBackgrounds = {
 
             // Check if image exist
             if (_this.imageExist(url)) {
-              _this.setTropicalBg(url);
+              _this.setTropicalBg(url, t);
               break;
             } else if (i === 3) {
-              _this.setTropicalBg('img/dist/island-beach.jpg');
+              _this.setTropicalBg('img/dist/island-beach.jpg', t);
             }
           }
         }
@@ -169,13 +168,10 @@ Site.FlickrBackgrounds = {
 
   },
 
-  setTropicalBg: function(url) {
+  setTropicalBg: function(url, bgNum) {
     var _this = this;
 
-    if (_this.imageNum < 6) {
-      $( _this.imageId + _this.imageNum ).attr('xlink:href',url);
-      _this.imageNum++;
-    }
+    $('#tropical-bg-' + bgNum).attr('xlink:href',url);
   },
 
   getRandomNumber: function(min,max) {
