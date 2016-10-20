@@ -38,30 +38,38 @@ nope: "js/polyfills/mediaqueries.js"
   </head>
   <body class="">
     <!--[if lt IE 8]><p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p><![endif]-->
-    <div id="gradient-background" data-2000="transform[cubic]: translateY(0%)" data-4000="transform[cubic]: translateY(-100%)"></div>
+    <div id="gradient-background" data-4000="transform[cubic]: translateY(0%)" data-6000="transform[cubic]: translateY(-100%)"></div>
 
-    <section id="organs" data-2000="transform[cubic]: translateY(0%)" data-3000="transform[cubic]: translateY(-120%)">
+    <section id="organs" data-4000="transform[cubic]: translateY(0%)" data-5000="transform[cubic]: translateY(-100%)">
       <svg id="organs-svg" width="100%" height="100%" baseProfile="full" version="1.2">
         <defs>
           <mask id="pngmask" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" transform="scale(1)">
             <image width="80%" height="80%" x="10%" y="10%" xlink:href="img/dist/organs.png"/>
           </mask>
         </defs>
-        <image id="image-1" class="tropical-image" mask="url(#pngmask)" width="100%" height="100%" y="0" x="0" xlink:href="https://c8.staticflickr.com/9/8729/16742528287_f2611e3a34_h.jpg" preserveAspectRatio="xMidYMid slice" 
-        data-0="opacity: 1" 
+        <image id="tropical-bg-1" class="tropical-image" mask="url(#pngmask)" width="100%" height="100%" y="0" x="0" xlink:href="" preserveAspectRatio="xMidYMid slice" 
+        data-0="opacity[cubic]: 1" 
         data-1000="opacity: 0"
         />
-        <image id="image-2" class="tropical-image" mask="url(#pngmask)" width="100%" height="100%" y="0" x="0" xlink:href="https://c6.staticflickr.com/8/7687/17160594069_d2399454ba_h.jpg" preserveAspectRatio="xMidYMid slice" 
+        <image id="tropical-bg-2" class="tropical-image" mask="url(#pngmask)" width="100%" height="100%" y="0" x="0" xlink:href="" preserveAspectRatio="xMidYMid slice" 
         data-0="opacity: 0"
         data-1000="opacity: 1" 
         data-2000="opacity: 0"
         />
-        <image id="image-3" class="tropical-image" mask="url(#pngmask)" width="100%" height="100%" y="0" x="0" xlink:href="https://c1.staticflickr.com/6/5177/5439463888_d0f078cdd6_b.jpg" preserveAspectRatio="xMidYMid slice" 
+        <image id="tropical-bg-3" class="tropical-image" mask="url(#pngmask)" width="100%" height="100%" y="0" x="0" xlink:href="" preserveAspectRatio="xMidYMid slice" 
         data-1000="opacity: 0"
         data-2000="opacity: 1" 
+        data-3000="opacity: 0"
         />
+        <image id="tropical-bg-4" class="tropical-image" mask="url(#pngmask)" width="100%" height="100%" y="0" x="0" xlink:href="" preserveAspectRatio="xMidYMid slice" 
+        data-2000="opacity: 0"
+        data-3000="opacity: 1" 
+        data-4000="opacity: 0"
         />
-        <image id="tropical-bg" mask="url(#pngmask)" width="100%" height="100%" y="0" x="0" xlink:href=""  preserveAspectRatio="xMidYMid slice" />
+        <image id="tropical-bg-5" class="tropical-image" mask="url(#pngmask)" width="100%" height="100%" y="0" x="0" xlink:href="" preserveAspectRatio="xMidYMid slice" 
+        data-3000="opacity: 0"
+        data-4000="opacity[cubic]: 1" 
+        />
       </svg>
     </section>
 
