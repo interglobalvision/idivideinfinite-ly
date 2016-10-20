@@ -10,6 +10,10 @@ Site = {
       _this.onResize();
     });
 
+    _this.skrollrHeight = 6000;
+
+    Site.Layout.init();
+
     _this.FlickrBackgrounds.init();
 
     $(document).ready(function() {
@@ -38,16 +42,15 @@ Site.Layout = {
   init: function() {
     var _this = this;
 
-    _this.skrollrHeight = 6000;
-    _this.mainContainerMarginTop();
+    _this.mainContainerPaddingTop();
   },
 
-  mainContainerMarginTop: function() {
+  mainContainerPaddingTop: function() {
     var _this = this;
 
-    $('#main-container').css('margin-top', _this.skrollrHeight);
+    $('#main-container').css('padding-top', Site.skrollrHeight * 0.95);
   }
-}
+};
 
 Site.Organs = {
   init: function() {
@@ -64,10 +67,7 @@ Site.Organs = {
 
     var s = skrollr.init({
       easing: 'quadratic',
-      skrollrBody: 'main-container',
-      render: function() {
-        Site.Layout.init();
-      }
+      skrollrBody: 'main-container'
     });
   },
 

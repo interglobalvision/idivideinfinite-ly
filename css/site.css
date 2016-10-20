@@ -780,9 +780,9 @@ img {
   height: 35vh;
 }
 #main-container {
-  position: absolute;
   width: 100%;
-  margin-top: 100vh;
+  padding-top: 100vh;
+  min-height: 100vh;
   top: 0;
   left: 0;
 }
