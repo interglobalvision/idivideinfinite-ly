@@ -10,11 +10,16 @@ Site = {
       _this.onResize();
     });
 
+    $(document).ready(function() {
+      _this.Organs.init();
+    });
+
   },
 
   onResize: function() {
     var _this = this;
 
+    _this.Layout.mainContainerMarginTop();
   },
 
   fixWidows: function() {
@@ -25,6 +30,58 @@ Site = {
       $(this).html(string);
     });
   },
+};
+
+Site.Layout = {
+  init: function() {
+    var _this = this;
+
+  },
+
+  mainContainerMarginTop: function() {
+    $('#main-container').css('margin-top', $('body').height() - $(window).height());
+  }
+}
+
+Site.Organs = {
+  init: function() {
+    var _this = this;
+
+    _this.initSkrollr();
+    _this.bindMouse();
+  },
+
+  initSkrollr: function() {
+    var s = skrollr.init({
+      easing: 'quadratic',
+      render: function() {
+        Site.Layout.mainContainerMarginTop();
+      }
+    });
+  },
+
+  bindMouse: function() {
+    $(window).mousemove(function( event ) {
+      var mouseX = event.clientX;
+      var mouseY = event.clientY;
+
+      var distanceX = (mouseX * 2) / $(window).width();
+      var distanceY = (mouseY * 2) / $(window).height();
+
+      var transX = distanceX * 5;
+      var transY = distanceY * 5;
+
+      var skewX = (distanceX - 1) * 10;
+      var skewY = (distanceY - 1) * 10;
+
+      $('#pngmask image').css({
+        'x': transX + '%',
+        'y': transY + '%',
+      });
+
+      $('svg').css('transform', 'skewX(' + skewX + 'deg) skewY(' + skewY + 'deg)');
+    });
+  }
 };
 
 jQuery(document).ready(function () {
