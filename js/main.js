@@ -10,8 +10,9 @@ Site = {
       _this.onResize();
     });
 
+    _this.FlickrBackgrounds.init();
+
     $(document).ready(function() {
-      _this.FlickrBackgrounds.init();
       _this.Organs.init();
     });
   },
@@ -39,7 +40,6 @@ Site.Layout = {
     _this.windowHeight = $(window).height();
     _this.mainContainerTop = $('body').height() - _this.windowHeight;
     _this.mainContainerMarginTop();
-
   },
 
   mainContainerMarginTop: function() {
@@ -101,10 +101,10 @@ Site.FlickrBackgrounds = {
     var _this = this;
 
     // This is the text used in the search query
-    _this.searchText = 'tropical+vacations';
+    _this.searchText = 'tropical+beach';
 
-    // Element where the bacground is set
-    _this.container = $('#tropical-bg');
+    // Element where the background is set
+    _this.imageNum = 1;
 
     // Flickr API key
     _this.apiKey = '6034ee53b5f4c9f50b9f7695b10b1298';
@@ -114,25 +114,30 @@ Site.FlickrBackgrounds = {
       
       // If Flicker says YUZ
       if(data.stat === 'ok') {
+        // We will get 5 images
+        for(var t = 1; t <= 5; t++) {
+          // We will attempt to find an existing image 4 times
+          for(var i = 0; i < 4; i++) {
 
-        // We will attempt to find an existing image 4 times
-        for(var i = 0; i < 4; i++) {
+            // Choose a random (0-99) photo from the data
+            var randomPhoto = data.photos.photo[_this.getRandomNumber(0,99)];
 
-          // Choose a random (0-99) photo from the data
-          var randomPhoto = data.photos.photo[_this.getRandomNumber(0,99)];
+            // Construct the photo url
+            var url = _this.constructUrl(randomPhoto);
 
-          // Construct the photo url
-          var url = _this.constructUrl(randomPhoto);
-
-          // Check if image exist
-          if (_this.imageExist(url)) {
-            _this.setTropicalBg(url);
-            break;
-          } else if (i === 3) {
-            _this.setTropicalBg('img/dist/island-beach.jpg');
+            // Check if image exist
+            if (_this.imageExist(url)) {
+              _this.setTropicalBg(url, t);
+              break;
+            } else if (i === 3) {
+              _this.setTropicalBg('img/dist/island-beach.jpg', t);
+            }
           }
         }
-      } 
+
+        $('body').css('overflow','initial');
+        $('#organs').css('opacity',1);
+      }
       
 
     });
@@ -163,12 +168,10 @@ Site.FlickrBackgrounds = {
 
   },
 
-  setTropicalBg: function(url) {
+  setTropicalBg: function(url, bgNum) {
     var _this = this;
 
-    console.log(url);
-
-    _this.container.attr('xlink:href',url);
+    $('#tropical-bg-' + bgNum).attr('xlink:href',url);
   },
 
   getRandomNumber: function(min,max) {
