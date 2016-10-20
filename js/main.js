@@ -48,7 +48,7 @@ Site.Layout = {
   mainContainerPaddingTop: function() {
     var _this = this;
 
-    $('#main-container').css('padding-top', Site.skrollrHeight * 0.95);
+    $('#main-container').css('padding-top', Site.skrollrHeight);
   }
 };
 
