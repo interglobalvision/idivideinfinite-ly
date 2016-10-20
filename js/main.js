@@ -79,7 +79,7 @@ Site.Organs = {
         'y': transY + '%',
       });
 
-      $('svg').css('transform', 'skewX(' + skewX + 'deg) skewY(' + skewY + 'deg)');
+      $('svg').css('transform', 'perspective(500px) rotate3d(' + skewX + ', ' + skewY + ', ' + skewY + ', ' + ((skewY * skewX) / 3) + 'deg)');
     });
   }
 };
