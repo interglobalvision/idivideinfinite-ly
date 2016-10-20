@@ -114,7 +114,7 @@ Site.FlickrBackgrounds = {
     _this.apiKey = '6034ee53b5f4c9f50b9f7695b10b1298';
 
     // Make the request
-    $.getJSON('https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=' + _this.apiKey +'&text=' + _this.searchText + '&safe_search=1&content_type=1&media=photos&format=json&jsoncallback=?', function(data) {
+    $.getJSON('https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=' + _this.apiKey + '&text=' + _this.searchText + '&safe_search=1&content_type=1&media=photos&format=json&jsoncallback=?', function(data) {
 
       // If Flicker says YUZ
       if(data.stat === 'ok') {
