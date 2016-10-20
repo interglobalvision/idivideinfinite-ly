@@ -29,9 +29,11 @@ function errorNotify(error){
 
 gulp.task('javascript', function() {
   return gulp.src('js/main.js')
+  .pipe(plumber())
   .pipe(sourcemaps.init())
   .pipe(jshint())
   .pipe(jshint.reporter('jshint-stylish'))
+  .on('error', errorNotify)
   .pipe(jscs('.jscsrc'))
   .on('error', errorNotify)
   .pipe(uglify())
@@ -73,6 +75,7 @@ gulp.task('style', function() {
 
 gulp.task('images', function () {
   return gulp.src('img/src/*.*')
+  .pipe(plumber())
   .pipe(cache('images'))
   .pipe(imagemin({
     progressive: false
