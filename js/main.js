@@ -68,8 +68,8 @@ Site.Organs = {
       var distanceX = (mouseX * 2) / $(window).width();
       var distanceY = (mouseY * 2) / $(window).height();
 
-      var transX = distanceX * 5;
-      var transY = distanceY * 5;
+      var transX = distanceX * 10;
+      var transY = distanceY * 10;
 
       var skewX = (distanceX - 1) * 10;
       var skewY = (distanceY - 1) * 10;
