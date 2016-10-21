@@ -3,7 +3,7 @@
 
 Site = {
   mobileThreshold: 601,
-  skrollrHeight: 6000,
+  skrollrHeight: 5500,
   init: function() {
     var _this = this;
 
@@ -34,6 +34,10 @@ Site = {
       $(this).html(string);
     });
   },
+
+  isMobile: function() {
+    return (/Android|iPhone|iPad|iPod|BlackBerry/i).test(navigator.userAgent || navigator.vendor || window.opera);
+  },
 };
 
 Site.Layout = {
@@ -51,7 +55,7 @@ Site.Layout = {
   },
 
   layout: function() {
-    $('#main-container').css('padding-top', Site.skrollrHeight);
+    $('#main-container').css('padding-top', Site.skrollrHeight + 100);
   }
 };
 
@@ -70,33 +74,61 @@ Site.Organs = {
 
     _this.skrollrInstance = skrollr.init({
       easing: 'quadratic',
-      skrollrBody: 'main-container'
+      skrollrBody: 'main-container',
+      forceHeight: false
     });
   },
 
   bindMouse: function() {
     var _this = this;
 
-    $(window).mousemove(function(event) {
-      var mouseX = event.clientX;
-      var mouseY = event.clientY;
+    if (Site.isMobile()) {
+      if (window.DeviceOrientationEvent) {
+        window.addEventListener('deviceorientation', function(event) {
+          // gamma and beta are values from -100 - 100
+          var distanceX = (event.gamma + 100) / 100;
+          var distanceY = (event.beta + 100) / 100;
 
-      var distanceX = (mouseX * 2) / $(window).width();
-      var distanceY = (mouseY * 2) / $(window).height();
+          var transX = distanceX * 10;
+          var transY = distanceY * 10;
 
-      var transX = distanceX * 10;
-      var transY = distanceY * 10;
+          var skewX = (distanceX - 1) * 10;
+          var skewY = (distanceY - 1) * 10;
 
-      var skewX = (distanceX - 1) * 10;
-      var skewY = (distanceY - 1) * 10;
+          // leaving this here for testing
+          //console.log('distanceX: ' + distanceX, 'distanceY: ' + distanceY, 'transX: ' + transX, 'transY: ' + transY, 'skewX: ' + skewX, 'skewY: ' + skewY);
 
-      $('#pngmask image').css({
+          _this.skewImage(transX, transY, skewX, skewY);
+        });
+      }
+    } else {
+      $(window).mousemove(function(event) {
+        var distanceX = (event.clientX * 2) / $(window).width();
+        var distanceY = (event.clientY * 2) / $(window).height();
+
+        var transX = distanceX * 10;
+        var transY = distanceY * 10;
+
+        var skewX = (distanceX - 1) * 10;
+        var skewY = (distanceY - 1) * 10;
+
+        // leaving this here for testing
+        //console.log('distanceX: ' + distanceX, 'distanceY: ' + distanceY, 'transX: ' + transX, 'transY: ' + transY, 'skewX: ' + skewX, 'skewY: ' + skewY);
+          
+        _this.skewImage(transX, transY, skewX, skewY);
+      });
+    }
+  },
+
+  skewImage: function(transX, transY, skewX, skewY) {
+    var _this = this;
+
+    $('#pngmask image').css({
         'x': transX + '%',
         'y': transY + '%',
       });
 
-      _this.$svg.css('transform', 'perspective(500px) rotate3d(' + skewX + ', ' + skewY + ', ' + skewY + ', ' + ((skewY * skewX) / 3) + 'deg)');
-    });
+    _this.$svg.css('transform', 'perspective(500px) rotate3d(' + skewX + ', ' + skewY + ', ' + skewY + ', ' + ((skewY * skewX) / 3) + 'deg)');
   }
 };
 
