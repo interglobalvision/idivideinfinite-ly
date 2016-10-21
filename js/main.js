@@ -82,40 +82,39 @@ Site.Organs = {
   bindMouse: function() {
     var _this = this;
 
-    var mouseX, 
-      mouseY,
-      distanceX,
-      distanceY,
-      transX,
-      transY,
-      skewX,
-      skewY;
-
     if (Site.isMobile()) {
       if (window.DeviceOrientationEvent) {
         window.addEventListener('deviceorientation', function(event) {
-          transX = event.beta;
-          transY = event.gamma;
-          skewX = transX;
-          skewY = transY;
+          // gamma and beta are values from -100 - 100
+          var distanceX = (event.gamma + 100) / 100;
+          var distanceY = (event.beta + 100) / 100;
+
+          var transX = distanceX * 10;
+          var transY = distanceY * 10;
+
+          var skewX = (distanceX - 1) * 10;
+          var skewY = (distanceY - 1) * 10;
+
+          // leaving this here for testing
+          //console.log('distanceX: ' + distanceX, 'distanceY: ' + distanceY, 'transX: ' + transX, 'transY: ' + transY, 'skewX: ' + skewX, 'skewY: ' + skewY);
 
           _this.skewImage(transX, transY, skewX, skewY);
         });
       }
     } else {
       $(window).mousemove(function(event) {
-        mouseX = event.clientX;
-        mouseY = event.clientY;
+        var distanceX = (event.clientX * 2) / $(window).width();
+        var distanceY = (event.clientY * 2) / $(window).height();
 
-        distanceX = (mouseX * 2) / $(window).width();
-        distanceY = (mouseY * 2) / $(window).height();
+        var transX = distanceX * 10;
+        var transY = distanceY * 10;
 
-        transX = distanceX * 10;
-        transY = distanceY * 10;
+        var skewX = (distanceX - 1) * 10;
+        var skewY = (distanceY - 1) * 10;
 
-        skewX = (distanceX - 1) * 10;
-        skewY = (distanceY - 1) * 10;
-
+        // leaving this here for testing
+        //console.log('distanceX: ' + distanceX, 'distanceY: ' + distanceY, 'transX: ' + transX, 'transY: ' + transY, 'skewX: ' + skewX, 'skewY: ' + skewY);
+          
         _this.skewImage(transX, transY, skewX, skewY);
       });
     }
