@@ -216,7 +216,7 @@ Site.Audio = {
     var _this = this;
 
     _this.playlistId = '269048127';
-    _this.clientId = '0a48e71510bb97b2148c3802bddc8802';
+    _this.clientId = 'tlpRScA9YMg119ZZrHZ6lAWCom7Rje9c';
     _this.playlistJson = 'http://api.soundcloud.com/playlists/' + _this.playlistId + '?client_id=' + _this.clientId;
 
     _this.getTrack();
