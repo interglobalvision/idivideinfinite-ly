@@ -137,7 +137,7 @@ Site.FlickrBackgrounds = {
     var _this = this;
 
     // This is the text used in the search query
-    _this.searchText = 'tropical+beach';
+    _this.searchText = 'desert+beach+paradise+tropical';
 
     // Element where the background is set
     _this.imageNum = 1;
