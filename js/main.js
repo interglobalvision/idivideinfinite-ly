@@ -3,7 +3,7 @@
 
 Site = {
   mobileThreshold: 601,
-  skrollrHeight: 5500,
+  skrollrHeight: 7000,
   init: function() {
     var _this = this;
 
@@ -55,7 +55,7 @@ Site.Layout = {
   },
 
   layout: function() {
-    $('#main-container').css('padding-top', Site.skrollrHeight + 100);
+    $('#main-container').css('padding-top', Site.skrollrHeight);
   }
 };
 
