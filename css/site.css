@@ -770,6 +770,10 @@ img {
   filter: alpha(opacity=0);
   opacity: 0;
   transition: opacity 1s linear;
+  top: -50vh;
+}
+#organs svg {
+  margin-left: 10%;
 }
 #gradient-background {
   background-image: linear-gradient(to bottom,#fff 10%,#fce205 35%,#000 100%);
